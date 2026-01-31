@@ -3,6 +3,7 @@ import { Users, BookOpen, ClipboardList, ShieldCheck } from "lucide-react";
 
 export default function HomePage() {
   return (
+    //Comentário
     <main className="min-h-screen bg-slate-100 flex flex-col items-center justify-center px-6">
       {/* HERO */}
       <section className="text-center max-w-3xl mb-12">
