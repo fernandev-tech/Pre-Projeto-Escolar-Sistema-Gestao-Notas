@@ -28,24 +28,24 @@ export default function AlunosAdmin() {
             <tr className="text-left border-b">
               <th>Nome</th>
               <th>Classe</th>
-              <th>Email</th>
+              <th>Turma</th>
             </tr>
           </thead>
           <tbody>
             <tr className="border-b hover:bg-gray-50">
-              <td>Ana Silva</td>
+              <td>Fernando B. Sebastião Fernando</td>
               <td>12ª Classe</td>
-              <td>ana@email.com</td>
+              <td>InformáticaAT</td>
             </tr>
             <tr className="border-b hover:bg-gray-50">
-              <td>Carlos Mendes</td>
+              <td>Isanildo César Tomás</td>
               <td>11ª Classe</td>
-              <td>carlos@email.com</td>
+              <td>Instalações ElétricasBT</td>
             </tr>
             <tr className="hover:bg-gray-50">
-              <td>Joana Lopes</td>
+              <td>Clêusio Salazar</td>
               <td>10ª Classe</td>
-              <td>joana@email.com</td>
+              <td>Máquinas e MotoresAM</td>
             </tr>
           </tbody>
         </table>
