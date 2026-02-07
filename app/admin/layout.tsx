@@ -15,7 +15,7 @@ export default function AdminLayout({
   return (
     <div className="min-h-screen flex">
       {/* ASIDE */}
-      <aside className="w-64 bg-indigo-700 text-white p-6">
+      <aside className="w-64 bg-blue-700 text-white p-6">
         <h2 className="text-xl font-bold mb-8">
           Administração
         </h2>

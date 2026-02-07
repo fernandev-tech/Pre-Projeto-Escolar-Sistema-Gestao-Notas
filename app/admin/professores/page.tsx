@@ -1,17 +1,22 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { UserCheck, Plus } from 'lucide-react'
+import { useState } from "react";
+import { Plus } from "lucide-react";
 
 export default function ProfessoresAdmin() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
+
+  const professores = [
+    { nome: "João Silva", disciplina: "Matemática" },
+    { nome: "Ana Costa", disciplina: "Física" },
+    { nome: "Bruno Lima", disciplina: "TLP" },
+  ];
 
   return (
-    <div className="p-6">
-      {/* Cabeçalho */}
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Gestão de Professores</h1>
-
+    <div className="p-6 space-y-6">
+      {/* Cabeçalho + Botão */}
+      <div className="flex justify-between items-center">
+        <h1 className="text-3xl font-bold">Gestão de Professores</h1>
         <button
           onClick={() => setOpen(true)}
           className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
@@ -22,31 +27,21 @@ export default function ProfessoresAdmin() {
       </div>
 
       {/* Tabela */}
-      <div className="bg-white rounded-xl shadow p-6">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="text-left border-b">
-              <th>Nome</th>
-              <th>Disciplina</th>
-              <th>Email</th>
+      <div className="overflow-x-auto bg-white rounded-lg shadow-md">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-blue-600 text-white">
+            <tr>
+              <th className="text-left p-4">Nome</th>
+              <th className="text-left p-4">Disciplina</th>
             </tr>
           </thead>
           <tbody>
-            <tr className="border-b hover:bg-gray-50">
-              <td>Prof. João</td>
-              <td>Matemática</td>
-              <td>joao@email.com</td>
-            </tr>
-            <tr className="border-b hover:bg-gray-50">
-              <td>Prof. Maria</td>
-              <td>Português</td>
-              <td>maria@email.com</td>
-            </tr>
-            <tr className="hover:bg-gray-50">
-              <td>Prof. Ana</td>
-              <td>Informática</td>
-              <td>ana@email.com</td>
-            </tr>
+            {professores.map((prof, index) => (
+              <tr key={index} className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}>
+                <td className="p-4">{prof.nome}</td>
+                <td className="p-4">{prof.disciplina}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
@@ -56,13 +51,10 @@ export default function ProfessoresAdmin() {
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center">
           <div className="bg-white p-6 rounded-xl w-full max-w-md">
             <h2 className="text-lg font-semibold mb-4">Novo Professor</h2>
-
             <div className="space-y-4">
               <input placeholder="Nome do professor" className="w-full border rounded-lg p-2" />
               <input placeholder="Disciplina" className="w-full border rounded-lg p-2" />
-              <input placeholder="Email" className="w-full border rounded-lg p-2" />
             </div>
-
             <div className="flex justify-end gap-3 mt-6">
               <button onClick={() => setOpen(false)} className="px-4 py-2 border rounded-lg">
                 Cancelar
@@ -75,5 +67,5 @@ export default function ProfessoresAdmin() {
         </div>
       )}
     </div>
-  )
+  );
 }

@@ -1,19 +1,26 @@
 "use client";
 
+import { useState } from "react";
+import { Plus } from "lucide-react";
+
 export default function MinhasDisciplinas() {
-  // Dados simulados
+  
+
   const disciplinas = [
     { disciplina: "Matemática", professor: "Ana Silva", turma: "Turma A - Ciências" },
     { disciplina: "Física", professor: "Bruno Costa", turma: "Turma A - Ciências" },
     { disciplina: "Química", professor: "Carla Sousa", turma: "Turma A - Ciências" },
-    { disciplina: "História", professor: "Daniela Gomes", turma: "Turma B - Humanas" },
-    { disciplina: "Geografia", professor: "Eduardo Lima", turma: "Turma B - Humanas" },
   ];
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-3xl font-bold">Minhas Disciplinas</h1>
+    <div className="space-y-6 p-6">
+      {/* Cabeçalho + Botão */}
+      <div className="flex justify-between items-center">
+        <h1 className="text-3xl font-bold">Minhas Disciplinas</h1>
+       
+      </div>
 
+      {/* Tabela */}
       <div className="overflow-x-auto bg-white rounded-lg shadow-md">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-blue-600 text-white">
@@ -34,6 +41,9 @@ export default function MinhasDisciplinas() {
           </tbody>
         </table>
       </div>
+
+      {/* Modal */}
+      
     </div>
   );
 }

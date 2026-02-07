@@ -9,7 +9,7 @@ export default function ProfessorLayout({
   return (
     <div className="flex min-h-screen bg-gray-100">
       {/* Aside / Menu Lateral */}
-      <aside className="w-64 bg-blue-600 text-white p-6">
+      <aside className="w-64 bg-blue-700 text-white p-6">
         <h2 className="text-2xl font-bold mb-8">Professor</h2>
 
         <nav className="space-y-4">

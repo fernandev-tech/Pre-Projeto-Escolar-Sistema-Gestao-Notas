@@ -1,19 +1,23 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { ClipboardList, Plus } from 'lucide-react'
+import { useState } from "react";
+import { Plus } from "lucide-react";
 
 export default function LancarNotasAdmin() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
+
+  // Dados simulados
+  const notas = [
+    { aluno: "Fernando B. Sebastião", disciplina: "Matemática", professor: "Ana Silva", nota: 18 },
+    { aluno: "Isanildo César Tomás", disciplina: "Física", professor: "Bruno Costa", nota: 16 },
+    { aluno: "Clêusio Salazar", disciplina: "TLP", professor: "Carla Sousa", nota: 20 },
+  ];
 
   return (
-    <div className="p-6">
-      {/* Cabeçalho */}
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">
-          Lançamento de Notas
-        </h1>
-
+    <div className="p-6 space-y-6">
+      {/* Cabeçalho + Botão */}
+      <div className="flex justify-between items-center">
+        <h1 className="text-3xl font-bold">Lançar Notas</h1>
         <button
           onClick={() => setOpen(true)}
           className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
@@ -24,35 +28,25 @@ export default function LancarNotasAdmin() {
       </div>
 
       {/* Tabela */}
-      <div className="bg-white rounded-xl shadow p-6">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="text-left border-b">
-              <th>Aluno</th>
-              <th>Disciplina</th>
-              <th>Professor</th>
-              <th>Nota</th>
+      <div className="overflow-x-auto bg-white rounded-lg shadow-md">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-blue-600 text-white">
+            <tr>
+              <th className="text-left p-4">Aluno</th>
+              <th className="text-left p-4">Disciplina</th>
+              <th className="text-left p-4">Professor</th>
+              <th className="text-left p-4">Nota</th>
             </tr>
           </thead>
           <tbody>
-            <tr className="border-b hover:bg-gray-50">
-              <td>Ana Silva</td>
-              <td>Matemática</td>
-              <td>Prof. João</td>
-              <td>15</td>
-            </tr>
-            <tr className="border-b hover:bg-gray-50">
-              <td>Carlos Mendes</td>
-              <td>Português</td>
-              <td>Prof. Maria</td>
-              <td>13</td>
-            </tr>
-            <tr className="hover:bg-gray-50">
-              <td>Joana Lopes</td>
-              <td>Informática</td>
-              <td>Prof. Ana</td>
-              <td>16</td>
-            </tr>
+            {notas.map((item, index) => (
+              <tr key={index} className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}>
+                <td className="p-4">{item.aluno}</td>
+                <td className="p-4">{item.disciplina}</td>
+                <td className="p-4">{item.professor}</td>
+                <td className="p-4">{item.nota}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
@@ -61,41 +55,18 @@ export default function LancarNotasAdmin() {
       {open && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center">
           <div className="bg-white p-6 rounded-xl w-full max-w-md">
-            <h2 className="text-lg font-semibold mb-4">
-              Lançar Nota
-            </h2>
-
+            <h2 className="text-lg font-semibold mb-4">Lançar Nota</h2>
             <div className="space-y-4">
-              <input
-                placeholder="Nome do aluno"
-                className="w-full border rounded-lg p-2"
-              />
-              <input
-                placeholder="Disciplina"
-                className="w-full border rounded-lg p-2"
-              />
-              <input
-                placeholder="Professor"
-                className="w-full border rounded-lg p-2"
-              />
-              <input
-                placeholder="Nota"
-                type="number"
-                className="w-full border rounded-lg p-2"
-              />
+              <input placeholder="Aluno" className="w-full border rounded-lg p-2" />
+              <input placeholder="Disciplina" className="w-full border rounded-lg p-2" />
+              <input placeholder="Professor" className="w-full border rounded-lg p-2" />
+              <input type="number" placeholder="Nota" className="w-full border rounded-lg p-2" />
             </div>
-
             <div className="flex justify-end gap-3 mt-6">
-              <button
-                onClick={() => setOpen(false)}
-                className="px-4 py-2 rounded-lg border"
-              >
+              <button onClick={() => setOpen(false)} className="px-4 py-2 border rounded-lg">
                 Cancelar
               </button>
-              <button
-                onClick={() => setOpen(false)}
-                className="px-4 py-2 rounded-lg bg-blue-600 text-white"
-              >
+              <button onClick={() => setOpen(false)} className="px-4 py-2 bg-blue-600 text-white rounded-lg">
                 Salvar
               </button>
             </div>
@@ -103,5 +74,5 @@ export default function LancarNotasAdmin() {
         </div>
       )}
     </div>
-  )
+  );
 }
