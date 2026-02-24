@@ -4,13 +4,33 @@ import { useState } from "react";
 import { Plus } from "lucide-react";
 
 export default function AlunosAdmin() {
+  // Alunos iniciais definidos no código
+  const [alunos, setAlunos] = useState([
+    { nome: "Fernando B Sebastião Fernando", classe: "12ª", turma: "Informática AT" },
+    { nome: "Isanildo César Tomás", classe: "11ª", turma: "Instalações Elétricas BT" },
+    { nome: "Clêusio Salazar", classe: "10ª", turma: "Máquinas e Motores AM" },
+    { nome: "Eugênio Bunga", classe: "12ª", turma: "Desenhador Projetista AM" },
+    { nome: "Isabel Mateus", classe: "10ª", turma: "Informática AT" },
+  ]);
+
+  // Estado do modal (para abrir e fechar)
   const [open, setOpen] = useState(false);
 
-  const alunos = [
-    { nome: "Fernando B Sebastião Fernando", classe: "12ª", turma: "InformáticaAT" },
-    { nome: "Isanildo César Tomás", classe: "11ª", turma: "Instalações Elétricas BT" },
-    { nome: "Clêusio Salazar", classe: "10ª", turma: "Máquinas AM" },
-  ];
+  // Estado para os inputs do formulário (dados do novo aluno)
+  const [novoAluno, setNovoAluno] = useState({
+    nome: "",
+    classe: "",
+    turma: "",
+  });
+
+  // Função para adicionar o novo aluno
+  const handleSave = () => {
+    // Adiciona o novo aluno ao estado
+    setAlunos([...alunos, novoAluno]);
+    // Fecha o modal e limpa os campos do formulário
+    setOpen(false);
+    setNovoAluno({ nome: "", classe: "", turma: "" });
+  };
 
   return (
     <div className="p-6 space-y-6">
@@ -54,15 +74,30 @@ export default function AlunosAdmin() {
           <div className="bg-white p-6 rounded-xl w-full max-w-md">
             <h2 className="text-lg font-semibold mb-4">Novo Aluno</h2>
             <div className="space-y-4">
-              <input placeholder="Nome do aluno" className="w-full border rounded-lg p-2" />
-              <input placeholder="Classe" className="w-full border rounded-lg p-2" />
-              <input placeholder="Turma" className="w-full border rounded-lg p-2" />
+              <input
+                placeholder="Nome do aluno"
+                value={novoAluno.nome}
+                onChange={(e) => setNovoAluno({ ...novoAluno, nome: e.target.value })}
+                className="w-full border rounded-lg p-2"
+              />
+              <input
+                placeholder="Classe"
+                value={novoAluno.classe}
+                onChange={(e) => setNovoAluno({ ...novoAluno, classe: e.target.value })}
+                className="w-full border rounded-lg p-2"
+              />
+              <input
+                placeholder="Turma"
+                value={novoAluno.turma}
+                onChange={(e) => setNovoAluno({ ...novoAluno, turma: e.target.value })}
+                className="w-full border rounded-lg p-2"
+              />
             </div>
             <div className="flex justify-end gap-3 mt-6">
               <button onClick={() => setOpen(false)} className="px-4 py-2 border rounded-lg">
                 Cancelar
               </button>
-              <button onClick={() => setOpen(false)} className="px-4 py-2 bg-blue-600 text-white rounded-lg">
+              <button onClick={handleSave} className="px-4 py-2 bg-blue-600 text-white rounded-lg">
                 Salvar
               </button>
             </div>
