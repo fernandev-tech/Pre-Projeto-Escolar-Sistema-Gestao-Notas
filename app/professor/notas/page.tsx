@@ -1,91 +1,106 @@
 "use client";
 
 import { useState } from "react";
+import { Plus } from "lucide-react";
 
-export default function LançarNotas() {
-  // Dados simulados
+export default function LancarNotasProfessor() {
+  // Lista inicial de notas simuladas
   const [notas, setNotas] = useState([
-    { aluno: "Ana Silva", disciplina: "Matemática", nota: 18 },
-    { aluno: "Bruno Costa", disciplina: "Física", nota: 16 },
-    { aluno: "Carla Sousa", disciplina: "Química", nota: 19 },
+    { aluno: "Fernando B. Sebastião", disciplina: "TLP", nota: 16 },
+    { aluno: "Isanildo César Tomás", disciplina: "Matemática", nota: 18 },
+    { aluno: "Clêusio Salazar", disciplina: "Física", nota: 15 },
   ]);
 
-  const [novoAluno, setNovoAluno] = useState("");
-  const [novaDisciplina, setNovaDisciplina] = useState("");
-  const [novaNota, setNovaNota] = useState("");
+  // Modal aberto/fechado
+  const [open, setOpen] = useState(false);
 
-  const adicionarNota = () => {
-    if (novoAluno && novaDisciplina && novaNota) {
-      setNotas([
-        ...notas,
-        { aluno: novoAluno, disciplina: novaDisciplina, nota: Number(novaNota) },
-      ]);
-      setNovoAluno("");
-      setNovaDisciplina("");
-      setNovaNota("");
+  // Nova nota
+  const [novaNota, setNovaNota] = useState({ aluno: "", disciplina: "", nota: "" });
+
+  // Função para adicionar nova nota
+  const handleSave = () => {
+    if (novaNota.aluno && novaNota.disciplina && novaNota.nota) {
+      setNotas([...notas, { ...novaNota, nota: Number(novaNota.nota) }]);
+      setOpen(false);
+      setNovaNota({ aluno: "", disciplina: "", nota: "" });
     }
   };
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-3xl font-bold">Lançar Notas</h1>
-
-      {/* Botão + Formulário */}
-      <div className="bg-white p-4 rounded-lg shadow-md space-y-4">
-        <h2 className="text-xl font-semibold">Adicionar Nota</h2>
-        <div className="flex flex-col sm:flex-row gap-4">
-          <input
-            type="text"
-            placeholder="Aluno"
-            value={novoAluno}
-            onChange={(e) => setNovoAluno(e.target.value)}
-            className="border p-2 rounded flex-1"
-          />
-          <input
-            type="text"
-            placeholder="Disciplina"
-            value={novaDisciplina}
-            onChange={(e) => setNovaDisciplina(e.target.value)}
-            className="border p-2 rounded flex-1"
-          />
-          <input
-            type="number"
-            placeholder="Nota"
-            min={0}
-            max={20}
-            value={novaNota}
-            onChange={(e) => setNovaNota(e.target.value)}
-            className="border p-2 rounded w-24"
-          />
-          <button
-            onClick={adicionarNota}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-500 transition-colors"
-          >
-            Adicionar
-          </button>
-        </div>
+    <div className="p-6 space-y-6">
+      {/* Cabeçalho + Botão */}
+      <div className="flex justify-between items-center">
+        <h1 className="text-3xl font-bold">Lançar Notas</h1>
+        <button
+          onClick={() => setOpen(true)}
+          className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+        >
+          <Plus size={18} />
+          Adicionar Nota
+        </button>
       </div>
 
       {/* Tabela de Notas */}
-      <table className="min-w-full bg-white rounded-lg shadow-md">
-        <thead className="bg-blue-600 text-white">
-          <tr>
-            <th className="text-left p-4">Aluno</th>
-            <th className="text-left p-4">Disciplina</th>
-            <th className="text-left p-4">Nota</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {notas.map((item, index) => (
-            <tr key={index} className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}>
-              <td className="p-4">{item.aluno}</td>
-              <td className="p-4">{item.disciplina}</td>
-              <td className="p-4">{item.nota}</td>
+      <div className="overflow-x-auto bg-white rounded-lg shadow-md">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-blue-600 text-white">
+            <tr>
+              <th className="text-left p-4">Aluno</th>
+              <th className="text-left p-4">Disciplina</th>
+              <th className="text-left p-4">Nota</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {notas.map((item, index) => (
+              <tr key={index} className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}>
+                <td className="p-4">{item.aluno}</td>
+                <td className="p-4">{item.disciplina}</td>
+                <td className="p-4">{item.nota}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Modal */}
+      {open && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-xl w-full max-w-md">
+            <h2 className="text-lg font-semibold mb-4">Adicionar Nota</h2>
+            <div className="space-y-4">
+              <input
+                placeholder="Aluno"
+                value={novaNota.aluno}
+                onChange={(e) => setNovaNota({ ...novaNota, aluno: e.target.value })}
+                className="w-full border rounded-lg p-2"
+              />
+              <input
+                placeholder="Disciplina"
+                value={novaNota.disciplina}
+                onChange={(e) => setNovaNota({ ...novaNota, disciplina: e.target.value })}
+                className="w-full border rounded-lg p-2"
+              />
+              <input
+                type="number"
+                placeholder="Nota"
+                value={novaNota.nota}
+                onChange={(e) => setNovaNota({ ...novaNota, nota: e.target.value })}
+                className="w-full border rounded-lg p-2"
+                min={0}
+                max={20}
+              />
+            </div>
+            <div className="flex justify-end gap-3 mt-6">
+              <button onClick={() => setOpen(false)} className="px-4 py-2 border rounded-lg">
+                Cancelar
+              </button>
+              <button onClick={handleSave} className="px-4 py-2 bg-blue-600 text-white rounded-lg">
+                Salvar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
